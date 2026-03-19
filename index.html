@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Way — Savoy, Texas</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%238b4513'/><text x='16' y='24' font-size='20' text-anchor='middle' fill='%23faf6f0'>✝</text></svg>" />
+
+  <!-- OG -->
+  <meta property="og:title" content="The Way — Savoy, Texas" />
+  <meta property="og:description" content="Making and growing followers of Jesus through worship, community and service." />
+  <meta property="og:url" content="https://www.followtheway.org" />
+
+  <style>
+    :root {
+      --cream:     #faf6f0;
+      --parchment: #f0e8d8;
+      --brown:     #8b4513;
+      --dark:      #2c1810;
+      --gold:      #c9a050;
+      --overlay:   rgba(20, 10, 5, 0.42);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      color: var(--dark);
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ── Parallax ── */
+    .parallax {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .parallax { background-attachment: scroll; }
+    }
+
+    .parallax-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--overlay);
+    }
+
+    .parallax-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Nav ── */
+    #main-nav {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(44, 24, 16, 0.5);
+      border-bottom: 2px solid rgba(201, 160, 80, 0.6);
+    }
+
+    .nav-link {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #e8ddd0;
+      text-decoration: none;
+      padding: 0 4px 2px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ── Sections ── */
+    .section-cream    { background: var(--cream); }
+    .section-parchment { background: var(--parchment); }
+
+    .section-pad { padding: 80px 24px; }
+
+    .section-title {
+      font-size: 2.4rem;
+      color: var(--brown);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-rule {
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 0 auto 2rem;
+    }
+
+    /* ── Pillar cards ── */
+    .pillar-card {
+      background: white;
+      border-top: 4px solid var(--gold);
+      padding: 32px 24px;
+      border-radius: 4px;
+      box-shadow: 0 2px 12px rgba(44,24,16,0.08);
+    }
+
+    /* ── Gospel cards ── */
+    .gospel-card {
+      border-left: 4px solid var(--gold);
+      padding: 24px 28px;
+      background: white;
+      border-radius: 0 4px 4px 0;
+      box-shadow: 0 2px 10px rgba(44,24,16,0.07);
+    }
+
+    /* ── Sermon cards ── */
+    .sermon-card {
+      background: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(44,24,16,0.08);
+      border-left: 4px solid var(--brown);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sermon-card-body {
+      padding: 14px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .sermon-listen {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--brown);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin-top: 6px;
+      transition: color 0.2s;
+    }
+
+    .sermon-listen:hover { color: var(--gold); }
+
+    /* ── CTA button ── */
+    .btn-gold {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--dark);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 36px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-gold:hover {
+      background: #d4af62;
+      color: var(--dark);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 34px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+
+    /* ── Mobile menu ── */
+    #mobile-menu {
+      display: none;
+      background: var(--dark);
+      border-top: 1px solid rgba(201,160,80,0.3);
+    }
+
+    #mobile-menu.open { display: block; }
+
+    #mobile-menu a {
+      display: block;
+      padding: 12px 24px;
+      color: #e8ddd0;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    #mobile-menu a:hover { color: var(--gold); }
+
+    /* ── Contact info ── */
+    .info-card {
+      background: white;
+      border-top: 4px solid var(--gold);
+      padding: 32px;
+      border-radius: 4px;
+      box-shadow: 0 2px 12px rgba(44,24,16,0.08);
+    }
+
+    /* ── Footer ── */
+    .footer-bar {
+      background: var(--dark);
+      color: #a09080;
+      font-size: 0.8rem;
+      padding: 18px 24px;
+      text-align: center;
+    }
+
+    .footer-bar a { color: var(--gold); text-decoration: none; }
+    .footer-bar a:hover { text-decoration: underline; }
+
+    /* ── Sermon thumbnail ── */
+    .sermon-card-img {
+      width: 100%;
+      aspect-ratio: 38 / 23;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* ── Audio player ── */
+    .sermon-audio {
+      width: 100%;
+      margin-top: 8px;
+      height: 32px;
+      accent-color: var(--brown);
+    }
+
+    /* ── Scroll arrow ── */
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(8px); }
+    }
+    .bounce { animation: bounce 2s ease-in-out infinite; }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════
+     NAVIGATION
+════════════════════════════════════ -->
+<nav id="main-nav">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;">
+
+    <!-- Logo -->
+    <a href="#home" style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#faf6f0;text-decoration:none;font-weight:600;letter-spacing:0.02em;">
+      The Way
+    </a>
+
+    <!-- Desktop links -->
+    <div id="desktop-links" style="display:flex;gap:28px;align-items:center;">
+      <a href="#home"     class="nav-link">Home</a>
+      <a href="#about"    class="nav-link">About Us</a>
+      <a href="#our-name" class="nav-link">Our Name</a>
+      <a href="#gospel"   class="nav-link">The Gospel</a>
+      <a href="#sermons"  class="nav-link">Sermons</a>
+      <a href="#contact"  class="nav-link">Contact</a>
+    </div>
+
+    <!-- Hamburger -->
+    <button id="hamburger" aria-label="Menu" style="display:none;background:none;border:none;color:#e8ddd0;font-size:1.4rem;cursor:pointer;padding:4px 8px;">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu">
+    <a href="#home"     onclick="closeMobile()">Home</a>
+    <a href="#about"    onclick="closeMobile()">About Us</a>
+    <a href="#our-name" onclick="closeMobile()">Our Name</a>
+    <a href="#gospel"   onclick="closeMobile()">The Gospel</a>
+    <a href="#sermons"  onclick="closeMobile()">Sermons</a>
+    <a href="#contact"  onclick="closeMobile()">Contact</a>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════
+     HERO — Image 1: The Building
+════════════════════════════════════ -->
+<section id="home" class="parallax" style="background-image:url('assets/1-TheWayBuilding-Pretty.png');min-height:100vh;display:flex;align-items:center;justify-content:center;">
+  <div class="parallax-overlay"></div>
+  <div class="parallax-content" style="text-align:center;padding:0 24px;max-width:800px;">
+    <h1 style="font-family:'Montserrat',sans-serif;font-size:clamp(4rem,11vw,8rem);color:#ffffff;font-weight:900;line-height:1.0;margin-bottom:0.2rem;text-shadow:0 2px 24px rgba(0,0,0,0.4);letter-spacing:-0.01em;">
+      The Way
+    </h1>
+    <p style="font-family:'Montserrat',sans-serif;font-size:clamp(1rem,3vw,1.5rem);color:var(--gold);letter-spacing:0.22em;text-transform:uppercase;font-weight:700;margin-bottom:2rem;">
+      Savoy, Texas
+    </p>
+    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1rem,2.5vw,1.35rem);color:#e8ddd0;max-width:600px;margin:0 auto 0.6rem;line-height:1.7;text-shadow:0 1px 8px rgba(0,0,0,0.4);">
+      "I am the way, and the truth, and the life.<br>No one comes to the Father except through me."
+    </p>
+    <p style="font-family:'Montserrat',sans-serif;font-size:0.75rem;color:var(--gold);letter-spacing:0.16em;text-transform:uppercase;font-weight:700;margin-bottom:2.5rem;">
+      — John 14:6 (ESV)
+    </p>
+    <a href="#contact" class="btn-gold" style="margin-right:14px;">Sunday Worship · 11am</a>
+    <a href="#sermons" class="btn-outline">Latest Sermons</a>
+    <div class="bounce" style="margin-top:60px;color:rgba(255,255,255,0.5);font-size:1.6rem;">
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     ABOUT US
+════════════════════════════════════ -->
+<section id="about" class="section-cream section-pad">
+  <div style="max-width:1100px;margin:0 auto;text-align:center;">
+    <h2 class="section-title">Who We Are</h2>
+    <div class="section-rule"></div>
+    <p style="font-size:1.2rem;font-style:italic;color:var(--brown);max-width:700px;margin:0 auto 3.5rem;line-height:1.8;font-family:'Playfair Display',serif;">
+      "The Way exists to make and grow followers of Jesus through worship, community and service."
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;text-align:left;">
+
+      <!-- Worship -->
+      <div class="pillar-card">
+        <div style="font-size:2rem;color:var(--gold);margin-bottom:16px;"><i class="fa-solid fa-hands-praying"></i></div>
+        <h3 style="font-size:1.3rem;color:var(--brown);margin-bottom:10px;">Worship</h3>
+        <p style="line-height:1.8;color:#5a3a28;font-size:0.95rem;margin-bottom:16px;">
+          Fixing our attention on Jesus to experience his love and power. Our weekend gatherings include learning from Scripture, prayer, and communal singing.
+        </p>
+        <p style="font-size:0.82rem;color:var(--brown);font-style:italic;font-family:'Playfair Display',serif;">
+          "The time is coming when the true worshipers will worship the Father in spirit and truth." — John 4:23
+        </p>
+      </div>
+
+      <!-- Community -->
+      <div class="pillar-card">
+        <div style="font-size:2rem;color:var(--gold);margin-bottom:16px;"><i class="fa-solid fa-people-group"></i></div>
+        <h3 style="font-size:1.3rem;color:var(--brown);margin-bottom:10px;">Community</h3>
+        <p style="line-height:1.8;color:#5a3a28;font-size:0.95rem;margin-bottom:16px;">
+          Christianity is personal but best experienced in good company. We gather weekly for communal meals — Agape Feasts — to build relationships that go beyond formal worship.
+        </p>
+        <p style="font-size:0.82rem;color:var(--brown);font-style:italic;font-family:'Playfair Display',serif;">
+          "All the believers were together and shared everything." — Acts 2:44
+        </p>
+      </div>
+
+      <!-- Service -->
+      <div class="pillar-card">
+        <div style="font-size:2rem;color:var(--gold);margin-bottom:16px;"><i class="fa-solid fa-heart"></i></div>
+        <h3 style="font-size:1.3rem;color:var(--brown);margin-bottom:10px;">Service</h3>
+        <p style="line-height:1.8;color:#5a3a28;font-size:0.95rem;margin-bottom:16px;">
+          Loving others through action, not merely words. Each of us has been given unique gifts to benefit the world around us — and serving others in Jesus's name is where those gifts come alive.
+        </p>
+        <p style="font-size:0.82rem;color:var(--brown);font-style:italic;font-family:'Playfair Display',serif;">
+          "Religion that is pure and undefiled before God is this: to visit orphans and widows in their affliction." — James 1:27
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     PARALLAX DIVIDER — Image 2: Baptism
+════════════════════════════════════ -->
+<div class="parallax" style="background-image:url('assets/2-MakBaptism-cleanedup.png');min-height:50vh;display:flex;align-items:center;justify-content:center;">
+  <div class="parallax-overlay"></div>
+  <div class="parallax-content" style="text-align:center;padding:0 24px;max-width:800px;">
+    <p style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,4.5vw,3rem);color:#ffffff;line-height:1.2;text-shadow:0 2px 16px rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:-0.01em;">
+      All the believers were together and shared everything they had.
+    </p>
+    <p style="font-family:'Montserrat',sans-serif;font-size:0.8rem;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;font-weight:700;margin-top:18px;">
+      Acts 2:44
+    </p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     OUR NAME
+════════════════════════════════════ -->
+<section id="our-name" class="section-parchment section-pad">
+  <div style="max-width:860px;margin:0 auto;text-align:center;">
+    <h2 class="section-title">Our Name</h2>
+    <div class="section-rule"></div>
+    <div style="text-align:left;font-size:1rem;line-height:1.9;color:var(--dark);">
+      <p style="margin-bottom:1.4rem;">
+        When the earliest followers of Jesus needed a name for their movement, they didn't call themselves "Christians" — that label came much later, around 100 AD. Instead, they identified themselves as members of <strong style="color:var(--brown);">The Way</strong>.
+      </p>
+      <p style="margin-bottom:1.4rem;">
+        The term appears throughout the book of Acts. When Saul was persecuting the early church, he was described as persecuting those who "belonged to the Way" (Acts 9:2). When the movement spread to Ephesus, the teaching of "the Way" caused a commotion that shook the entire city (Acts 19:23).
+      </p>
+      <p style="margin-bottom:1.4rem;">
+        The name flows directly from Jesus's own words in John 14:6 — <em style="color:var(--brown);font-family:'Playfair Display',serif;">"I am the way, and the truth, and the life."</em> To follow Jesus is to follow a Way, not merely a set of beliefs.
+      </p>
+      <p style="margin-bottom:1.4rem;">
+        We chose this name to step away from the denominational and institutional baggage that so often accompanies the word "church" in our culture. We wanted to return to something simpler — a movement of people who are actually trying to follow Jesus in the way he taught.
+      </p>
+      <p>
+        We are not a denomination. We are not trying to be. We are simply <strong style="color:var(--brown);">The Way</strong> — a community of people following Jesus together.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     PARALLAX DIVIDER — Image 3: Sunday Service
+════════════════════════════════════ -->
+<div class="parallax" style="background-image:url('assets/3-Sundayservice.jpeg');min-height:50vh;display:flex;align-items:center;justify-content:center;">
+  <div class="parallax-overlay"></div>
+  <div class="parallax-content" style="text-align:center;padding:0 24px;max-width:800px;">
+    <p style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,4.5vw,3rem);color:#ffffff;line-height:1.2;text-shadow:0 2px 16px rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:-0.01em;">
+      The true worshipers will worship the Father in spirit and truth.
+    </p>
+    <p style="font-family:'Montserrat',sans-serif;font-size:0.8rem;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;font-weight:700;margin-top:18px;">
+      John 4:23
+    </p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     THE GOSPEL
+════════════════════════════════════ -->
+<section id="gospel" class="section-cream section-pad">
+  <div style="max-width:1000px;margin:0 auto;text-align:center;">
+    <h2 class="section-title">The Gospel</h2>
+    <div class="section-rule"></div>
+    <p style="font-size:1.05rem;color:#6a4030;max-width:640px;margin:0 auto 3.5rem;line-height:1.8;font-family:'Playfair Display',serif;font-style:italic;">
+      Plain and Simple
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;text-align:left;">
+
+      <!-- The Problem -->
+      <div class="gospel-card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <span style="color:var(--gold);font-size:1.5rem;"><i class="fa-solid fa-triangle-exclamation"></i></span>
+          <h3 style="font-size:1.15rem;color:var(--brown);margin:0;">The Problem</h3>
+        </div>
+        <p style="line-height:1.9;color:#5a3a28;font-size:0.95rem;">
+          God created us to be in relationship with him, but humanity has consistently failed to live up to his standard. From the very beginning — when Adam broke the single rule God had given — we established a pattern of falling short. No one can earn their way to God through their own effort or goodness.
+        </p>
+      </div>
+
+      <!-- The Solution -->
+      <div class="gospel-card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <span style="color:var(--gold);font-size:1.5rem;"><i class="fa-solid fa-cross"></i></span>
+          <h3 style="font-size:1.15rem;color:var(--brown);margin:0;">The Solution</h3>
+        </div>
+        <p style="line-height:1.9;color:#5a3a28;font-size:0.95rem;">
+          God demonstrated his love by sending his Son. Jesus lived a completely sinless life — the life none of us could live — then willingly accepted crucifixion as payment for our sin. Three days later he rose from the dead, proving victory over both sin and death.
+          <em style="display:block;margin-top:10px;font-size:0.88rem;color:var(--brown);font-family:'Playfair Display',serif;">"Christ died for our sins… was buried… raised on the third day." — 1 Cor 15:3–4</em>
+        </p>
+      </div>
+
+      <!-- The Result -->
+      <div class="gospel-card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <span style="color:var(--gold);font-size:1.5rem;"><i class="fa-solid fa-sun"></i></span>
+          <h3 style="font-size:1.15rem;color:var(--brown);margin:0;">The Result</h3>
+        </div>
+        <p style="line-height:1.9;color:#5a3a28;font-size:0.95rem;">
+          Through faith in what Jesus did, we receive what we could never earn — the gift of his righteousness and the promise of eternal life. This is the good news. Not a set of rules to follow, but a gift to receive and a relationship to enter into.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     PARALLAX DIVIDER — Image 4: Sunrise Service
+════════════════════════════════════ -->
+<div class="parallax" style="background-image:url('assets/4-sunriseservice-cleaned.png');min-height:50vh;display:flex;align-items:center;justify-content:center;">
+  <div class="parallax-overlay"></div>
+  <div class="parallax-content" style="text-align:center;padding:0 24px;max-width:800px;">
+    <p style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,4.5vw,3rem);color:#ffffff;line-height:1.2;text-shadow:0 2px 16px rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:-0.01em;">
+      Christ died for our sins. He was buried. He was raised on the third day.
+    </p>
+    <p style="font-family:'Montserrat',sans-serif;font-size:0.8rem;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;font-weight:700;margin-top:18px;">
+      1 Corinthians 15:3–4
+    </p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     SERMONS
+════════════════════════════════════ -->
+<section id="sermons" class="section-parchment section-pad">
+  <div style="max-width:1100px;margin:0 auto;text-align:center;">
+    <h2 class="section-title">Recent Sermons</h2>
+    <div class="section-rule"></div>
+    <p style="color:#7a5040;margin-bottom:3rem;font-size:0.95rem;">Listen to our most recent messages below.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;text-align:left;">
+
+      <div class="sermon-card">
+        <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/03/03.15.2026-1SamPart3-760x460.png" alt="1Sam Series Part 3" />
+        <div class="sermon-card-body">
+        <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">1Sam Series Part 3</div>
+        <div style="font-size:0.82rem;color:#8a6050;">Brent Helms &nbsp;·&nbsp; March 15, 2026</div>
+        <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/03/03.15.2026-1SamPart3.mp3" preload="none"></audio>
+        </div>
+      </div>
+
+      <div class="sermon-card">
+        <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/03/03.08.2026-Galatians4-760x460.png" alt="Galatians 4" />
+        <div class="sermon-card-body">
+        <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Galatians 4</div>
+        <div style="font-size:0.82rem;color:#8a6050;">David Gaddy &nbsp;·&nbsp; March 8, 2026</div>
+        <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/03/03.08.2026-Galations4.mp3" preload="none"></audio>
+        </div>
+      </div>
+
+      <div class="sermon-card">
+        <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/03/03.01.2026-BetterCallSaul-760x460.png" alt="Better Call Saul" />
+        <div class="sermon-card-body">
+        <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Better Call Saul</div>
+        <div style="font-size:0.82rem;color:#8a6050;">Michael Armontrout &nbsp;·&nbsp; March 1, 2026</div>
+        <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/03/03.01.26-BetterCallSaul.mp3" preload="none"></audio>
+        </div>
+      </div>
+
+      <div class="sermon-card">
+        <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/03/02.22.2026-ItBeginsWithMe-760x460.png" alt="It Begins with Me" />
+        <div class="sermon-card-body">
+        <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">It Begins with Me</div>
+        <div style="font-size:0.82rem;color:#8a6050;">Jacob Dugger &nbsp;·&nbsp; February 22, 2026</div>
+        <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/03/02.22.2026-ItBeginsWithMe.mp3" preload="none"></audio>
+        </div>
+      </div>
+
+      <div class="sermon-card">
+        <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/02/01_SamuelSeries-Part2Cover-760x460.png" alt="1 Samuel Series Part 2" />
+        <div class="sermon-card-body">
+        <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">1 Samuel Series Part 2</div>
+        <div style="font-size:0.82rem;color:#8a6050;">Brent Helms &nbsp;·&nbsp; February 15, 2026</div>
+        <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/02/02.15.2026.mp3" preload="none"></audio>
+        </div>
+      </div>
+
+      <div class="sermon-card">
+        <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/02/Galatians-Chapter-3-760x460.png" alt="Galatians 3" />
+        <div class="sermon-card-body">
+        <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Galatians 3</div>
+        <div style="font-size:0.82rem;color:#8a6050;">David Gaddy &nbsp;·&nbsp; February 8, 2026</div>
+        <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/02/02.08.2026.mp3" preload="none"></audio>
+        </div>
+      </div>
+
+      <div class="sermon-card">
+        <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/02/Galatians-Chapter-2-760x460.png" alt="Galatians 2" />
+        <div class="sermon-card-body">
+        <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Galatians 2</div>
+        <div style="font-size:0.82rem;color:#8a6050;">Michael Armontrout &nbsp;·&nbsp; February 1, 2026</div>
+        <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/02/Galatians-2-2026-02-01.mp3" preload="none"></audio>
+        </div>
+      </div>
+
+      <div class="sermon-card">
+        <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/GalatiansPart1-760x460.png" alt="Galatians Series Part 1" />
+        <div class="sermon-card-body">
+        <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Galatians Series – Part 1</div>
+        <div style="font-size:0.82rem;color:#8a6050;">Michael Armontrout &nbsp;·&nbsp; January 11, 2026</div>
+        <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/Galatians1-01.11.26.mp3" preload="none"></audio>
+        </div>
+      </div>
+
+      <div class="sermon-card">
+        <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/Slide01_TitleSlide-1SAMPt1-760x460.png" alt="1 Samuel Series Part 1" />
+        <div class="sermon-card-body">
+        <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">1 Samuel Series Part 1</div>
+        <div style="font-size:0.82rem;color:#8a6050;">Brent Helms &nbsp;·&nbsp; January 18, 2026</div>
+        <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/260118_001.mp3" preload="none"></audio>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:3rem;">
+      <a href="sermons.html" class="btn-outline">View All Sermons &rarr;</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     PARALLAX DIVIDER — Image 5: He Is Risen
+════════════════════════════════════ -->
+<div class="parallax" style="background-image:url('assets/5-heisrisen.jpg');min-height:50vh;display:flex;align-items:center;justify-content:center;">
+  <div class="parallax-overlay"></div>
+  <div class="parallax-content" style="text-align:center;padding:0 24px;max-width:800px;">
+    <p style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(2rem,6vw,4.5rem);color:#ffffff;line-height:1.1;text-shadow:0 2px 24px rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:-0.01em;">
+      He is not here. He has risen!
+    </p>
+    <p style="font-family:'Montserrat',sans-serif;font-size:0.8rem;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;font-weight:700;margin-top:18px;">
+      Luke 24:6
+    </p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     CONTACT
+════════════════════════════════════ -->
+<section id="contact" class="section-cream section-pad">
+  <div style="max-width:900px;margin:0 auto;text-align:center;">
+    <h2 class="section-title">Find Us</h2>
+    <div class="section-rule"></div>
+    <p style="color:#7a5040;margin-bottom:3rem;font-size:0.95rem;">We'd love to have you join us.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;text-align:left;">
+
+      <div class="info-card">
+        <div style="font-size:1.6rem;color:var(--gold);margin-bottom:14px;"><i class="fa-solid fa-location-dot"></i></div>
+        <h3 style="font-size:1.1rem;color:var(--brown);margin-bottom:10px;">Address</h3>
+        <p style="line-height:1.9;color:#5a3a28;font-size:0.95rem;">
+          308 E Fowler Street<br>
+          Savoy, TX 75479
+        </p>
+      </div>
+
+      <div class="info-card">
+        <div style="font-size:1.6rem;color:var(--gold);margin-bottom:14px;"><i class="fa-solid fa-clock"></i></div>
+        <h3 style="font-size:1.1rem;color:var(--brown);margin-bottom:10px;">Service Times</h3>
+        <p style="line-height:2;color:#5a3a28;font-size:0.95rem;">
+          <strong>Sunday Worship</strong><br>11:00 AM
+        </p>
+      </div>
+
+      <div class="info-card">
+        <div style="font-size:1.6rem;color:var(--gold);margin-bottom:14px;"><i class="fa-solid fa-people-arrows"></i></div>
+        <h3 style="font-size:1.1rem;color:var(--brown);margin-bottom:10px;">Lifegroups</h3>
+        <p style="line-height:1.9;color:#5a3a28;font-size:0.95rem;">
+          Midweek small group gatherings for deeper community, study, and fellowship. Ask us about finding a group near you.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     FOOTER — Image 6: Guatemala
+════════════════════════════════════ -->
+<div class="parallax" style="background-image:url('assets/6-guatemala.jpeg');background-position:top;min-height:40vh;display:flex;align-items:center;justify-content:center;">
+  <div class="parallax-overlay"></div>
+  <div class="parallax-content" style="text-align:center;padding:0 24px;">
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.5rem);color:#faf6f0;font-weight:700;margin-bottom:10px;text-shadow:0 2px 12px rgba(0,0,0,0.5);">
+      The Way — Savoy, TX
+    </h2>
+    <p style="font-family:'Lato',sans-serif;font-size:0.9rem;color:#d4b990;letter-spacing:0.1em;text-transform:uppercase;">
+      Making and growing followers of Jesus
+    </p>
+  </div>
+</div>
+
+<div class="footer-bar">
+  &copy; <span id="year"></span> The Way &nbsp;·&nbsp;
+  308 E Fowler Street, Savoy, TX 75479 &nbsp;·&nbsp;
+  <a href="https://www.followtheway.org/sermons" target="_blank">Full Sermon Archive</a>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════ -->
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Responsive nav
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const desktopLinks = document.getElementById('desktop-links');
+
+  function applyNavLayout() {
+    if (window.innerWidth < 768) {
+      hamburger.style.display = 'block';
+      desktopLinks.style.display = 'none';
+    } else {
+      hamburger.style.display = 'none';
+      desktopLinks.style.display = 'flex';
+      mobileMenu.classList.remove('open');
+    }
+  }
+
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  window.addEventListener('resize', applyNavLayout);
+  applyNavLayout();
+
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+  }
+
+  // Scroll spy — highlight active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

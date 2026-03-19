@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sermons Archive — The Way</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%238b4513'/><text x='16' y='24' font-size='20' text-anchor='middle' fill='%23faf6f0'>✝</text></svg>" />
+
+  <style>
+    :root {
+      --cream:     #faf6f0;
+      --parchment: #f0e8d8;
+      --brown:     #8b4513;
+      --dark:      #2c1810;
+      --gold:      #c9a050;
+      --overlay:   rgba(20, 10, 5, 0.42);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      color: var(--dark);
+      margin: 0; padding: 0;
+      background: var(--parchment);
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+    .parallax {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .parallax { background-attachment: scroll; }
+    }
+
+    .parallax-overlay {
+      position: absolute; inset: 0;
+      background: var(--overlay);
+    }
+
+    .parallax-content { position: relative; z-index: 1; }
+
+    #main-nav {
+      position: absolute; top: 0; width: 100%; z-index: 100;
+      background: rgba(44, 24, 16, 0.5);
+      border-bottom: 2px solid rgba(201, 160, 80, 0.6);
+    }
+
+    .nav-link {
+      font-family: 'Lato', sans-serif; font-weight: 700;
+      font-size: 0.8rem; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #e8ddd0;
+      text-decoration: none; padding: 0 4px 2px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-link:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+    .sermon-card {
+      background: white; border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(44,24,16,0.08);
+      border-left: 4px solid var(--brown);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sermon-card-body {
+      padding: 14px 18px 18px;
+      display: flex; flex-direction: column; gap: 6px;
+      flex: 1;
+    }
+
+    .sermon-listen {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--brown); font-weight: 700; font-size: 0.82rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; margin-top: 6px;
+      transition: color 0.2s;
+    }
+    .sermon-listen:hover { color: var(--gold); }
+
+    .btn-outline {
+      display: inline-block; border: 2px solid var(--gold);
+      color: var(--gold); font-family: 'Lato', sans-serif;
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 12px 34px; border-radius: 2px;
+      text-decoration: none; transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--gold); color: var(--dark); }
+
+    #mobile-menu { display: none; background: var(--dark); border-top: 1px solid rgba(201,160,80,0.3); }
+    #mobile-menu.open { display: block; }
+    #mobile-menu a { display: block; padding: 12px 24px; color: #e8ddd0; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    #mobile-menu a:hover { color: var(--gold); }
+
+    .footer-bar { background: var(--dark); color: #a09080; font-size: 0.8rem; padding: 18px 24px; text-align: center; }
+    .footer-bar a { color: var(--gold); text-decoration: none; }
+    .footer-bar a:hover { text-decoration: underline; }
+
+    .section-rule { width: 60px; height: 3px; background: var(--gold); margin: 0 auto 2rem; }
+
+    .sermon-audio {
+      width: 100%;
+      margin-top: 8px;
+      height: 32px;
+      accent-color: var(--brown);
+    }
+
+    .sermon-card-img {
+      width: 100%;
+      aspect-ratio: 38 / 23;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;">
+    <a href="index.html" style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#faf6f0;text-decoration:none;font-weight:600;letter-spacing:0.02em;">The Way</a>
+    <div id="desktop-links" style="display:flex;gap:28px;align-items:center;">
+      <a href="index.html#home"     class="nav-link">Home</a>
+      <a href="index.html#about"    class="nav-link">About Us</a>
+      <a href="index.html#our-name" class="nav-link">Our Name</a>
+      <a href="index.html#gospel"   class="nav-link">The Gospel</a>
+      <a href="index.html#sermons"  class="nav-link">Sermons</a>
+      <a href="index.html#contact"  class="nav-link">Contact</a>
+    </div>
+    <button id="hamburger" aria-label="Menu" style="display:none;background:none;border:none;color:#e8ddd0;font-size:1.4rem;cursor:pointer;padding:4px 8px;">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+  <div id="mobile-menu">
+    <a href="index.html#home"     onclick="closeMobile()">Home</a>
+    <a href="index.html#about"    onclick="closeMobile()">About Us</a>
+    <a href="index.html#our-name" onclick="closeMobile()">Our Name</a>
+    <a href="index.html#gospel"   onclick="closeMobile()">The Gospel</a>
+    <a href="index.html#sermons"  onclick="closeMobile()">Sermons</a>
+    <a href="index.html#contact"  onclick="closeMobile()">Contact</a>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<div class="parallax" style="background-image:url('assets/4-sunriseservice-cleaned.png');min-height:50vh;display:flex;align-items:center;justify-content:center;">
+  <div class="parallax-overlay"></div>
+  <div class="parallax-content" style="text-align:center;padding:0 24px;">
+    <h1 style="font-family:'Montserrat',sans-serif;font-size:clamp(2.8rem,8vw,5.5rem);color:#faf6f0;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;text-shadow:0 3px 20px rgba(0,0,0,0.6);margin-bottom:0.5rem;">
+      Sermons Archive
+    </h1>
+    <p style="font-family:'Montserrat',sans-serif;font-size:0.85rem;color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;font-weight:700;">
+      The Way — Savoy, Texas
+    </p>
+  </div>
+</div>
+
+
+<!-- SERMONS LIST -->
+<section style="padding:80px 24px;max-width:1100px;margin:0 auto;">
+  <div style="text-align:center;margin-bottom:3rem;">
+    <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--brown);margin-bottom:0.4rem;">More Messages</h2>
+    <div class="section-rule"></div>
+    <p style="color:#7a5040;font-size:0.95rem;">Continuing from where the home page left off.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+
+    <div class="sermon-card">
+      <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/BookOf-Jude-760x360.png" alt="The Book of Jude" loading="lazy" onerror="this.style.display='none'" />
+        <div class="sermon-card-body">
+      <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">The Book of Jude</div>
+      <div style="font-size:0.82rem;color:#8a6050;">Brent Helms &nbsp;·&nbsp; December 28, 2025</div>
+      <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/251228_001.mp3" preload="none"></audio>
+      </div>
+    </div>
+
+    <div class="sermon-card">
+      <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/ChristmasGodInEnemyTerritory-760x360.png" alt="Christmas is God in Enemy Territory" loading="lazy" onerror="this.style.display='none'" />
+        <div class="sermon-card-body">
+      <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Christmas is God in Enemy Territory</div>
+      <div style="font-size:0.82rem;color:#8a6050;">David Gaddy &nbsp;·&nbsp; December 21, 2025</div>
+      <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/251221_003.mp3" preload="none"></audio>
+      </div>
+    </div>
+
+    <div class="sermon-card">
+      <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/redemption-760x360.png" alt="Redemption" loading="lazy" onerror="this.style.display='none'" />
+        <div class="sermon-card-body">
+      <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Redemption</div>
+      <div style="font-size:0.82rem;color:#8a6050;">Brent Helms &nbsp;·&nbsp; December 14, 2025</div>
+      <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/251214_002.mp3" preload="none"></audio>
+      </div>
+    </div>
+
+    <div class="sermon-card">
+      <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/Immanuel-760x460.png" alt="Immanuel" loading="lazy" onerror="this.style.display='none'" />
+        <div class="sermon-card-body">
+      <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Immanuel</div>
+      <div style="font-size:0.82rem;color:#8a6050;">Michael Armontrout &nbsp;·&nbsp; December 7, 2025</div>
+      <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/2025-12-07-01-09-56-Immanuel.mp3" preload="none"></audio>
+      </div>
+    </div>
+
+    <div class="sermon-card">
+      <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/JohnChapter4-760x360.png" alt="1 John Chapter 4" loading="lazy" onerror="this.style.display='none'" />
+        <div class="sermon-card-body">
+      <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">1 John Chapter 4</div>
+      <div style="font-size:0.82rem;color:#8a6050;">David Gaddy &nbsp;·&nbsp; November 16, 2025</div>
+      <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/251116_001.mp3" preload="none"></audio>
+      </div>
+    </div>
+
+    <div class="sermon-card">
+      <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/Immediately-760x460.png" alt="Immediately" loading="lazy" onerror="this.style.display='none'" />
+        <div class="sermon-card-body">
+      <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Immediately</div>
+      <div style="font-size:0.82rem;color:#8a6050;">Michael Armontrout &nbsp;·&nbsp; November 9, 2025</div>
+      <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/2025-11-09-Immediately.wav" preload="none"></audio>
+      </div>
+    </div>
+
+    <div class="sermon-card">
+      <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/FreedomFromunderstanding-760x460.png" alt="1 John 3: Freedom and Understanding" loading="lazy" onerror="this.style.display='none'" />
+        <div class="sermon-card-body">
+      <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">1 John 3: Freedom and Understanding</div>
+      <div style="font-size:0.82rem;color:#8a6050;">David Gaddy &nbsp;·&nbsp; November 2, 2025</div>
+      <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/251102_001.mp3" preload="none"></audio>
+      </div>
+    </div>
+
+    <div class="sermon-card">
+      <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/Patience-760x360.png" alt="Patience" loading="lazy" onerror="this.style.display='none'" />
+        <div class="sermon-card-body">
+      <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Patience</div>
+      <div style="font-size:0.82rem;color:#8a6050;">Brent Helms &nbsp;·&nbsp; October 26, 2025</div>
+      <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/251026_001.mp3" preload="none"></audio>
+      </div>
+    </div>
+
+    <div class="sermon-card">
+      <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/1JohnAbideInMe-760x360.png" alt="1 John: Abide in Me" loading="lazy" onerror="this.style.display='none'" />
+        <div class="sermon-card-body">
+      <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">1 John: Abide in Me</div>
+      <div style="font-size:0.82rem;color:#8a6050;">David Gaddy &nbsp;·&nbsp; October 19, 2025</div>
+      <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/251019_001.mp3" preload="none"></audio>
+      </div>
+    </div>
+
+    <div class="sermon-card">
+      <img class="sermon-card-img" src="https://followtheway.org/wp-content/uploads/2026/01/Building-Community-1-760x360.png" alt="Building Community" loading="lazy" onerror="this.style.display='none'" />
+        <div class="sermon-card-body">
+      <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">Building Community</div>
+      <div style="font-size:0.82rem;color:#8a6050;">Jacob Dugger &nbsp;·&nbsp; September 28, 2025</div>
+      <audio class="sermon-audio" controls src="https://followtheway.org/wp-content/uploads/2026/01/250928_001.mp3" preload="none"></audio>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- POC notice + back link -->
+  <div style="margin-top:3.5rem;text-align:center;padding:28px;background:white;border-radius:4px;border:1px dashed var(--gold);">
+    <p style="color:#8a6050;font-size:0.9rem;margin-bottom:16px;">
+      <i class="fa-solid fa-circle-info" style="color:var(--gold);margin-right:6px;"></i>
+      The full sermon archive contains 370+ messages going back to 2015. Admin upload &amp; full archive coming soon.
+    </p>
+    <a href="https://www.followtheway.org/sermons" target="_blank" class="btn-outline" style="margin-right:16px;">Full Archive on Current Site &rarr;</a>
+  </div>
+
+  <div style="text-align:center;margin-top:2.5rem;">
+    <a href="index.html" style="color:var(--brown);font-size:0.9rem;font-weight:700;text-decoration:none;letter-spacing:0.06em;">
+      <i class="fa-solid fa-arrow-left"></i> &nbsp;Back to Home
+    </a>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<div class="parallax" style="background-image:url('assets/6-guatemala.jpeg');min-height:25vh;display:flex;align-items:center;justify-content:center;">
+  <div class="parallax-overlay"></div>
+  <div class="parallax-content" style="text-align:center;padding:0 24px;">
+    <p style="font-family:'Playfair Display',serif;font-size:1.5rem;color:#faf6f0;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,0.5);">The Way — Savoy, TX</p>
+    <p style="font-family:'Lato',sans-serif;font-size:0.8rem;color:#d4b990;letter-spacing:0.1em;text-transform:uppercase;">Making and growing followers of Jesus</p>
+  </div>
+</div>
+
+<div class="footer-bar">
+  &copy; <span id="year"></span> The Way &nbsp;·&nbsp; 308 E Fowler Street, Savoy, TX 75479
+</div>
+
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const desktopLinks = document.getElementById('desktop-links');
+
+  function applyNavLayout() {
+    if (window.innerWidth < 768) {
+      hamburger.style.display = 'block';
+      desktopLinks.style.display = 'none';
+    } else {
+      hamburger.style.display = 'none';
+      desktopLinks.style.display = 'flex';
+      mobileMenu.classList.remove('open');
+    }
+  }
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  window.addEventListener('resize', applyNavLayout);
+  applyNavLayout();
+  function closeMobile() { mobileMenu.classList.remove('open'); }
+</script>
+
+</body>
+</html>
