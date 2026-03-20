@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sermons Archive — The Way</title>
+  <title>Thoughts — The Way</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,159 +22,54 @@
       --gold:      #c9a050;
       --overlay:   rgba(20, 10, 5, 0.42);
     }
-
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Lato', sans-serif;
-      color: var(--dark);
-      margin: 0; padding: 0;
-      background: var(--parchment);
-    }
-
+    body { font-family: 'Lato', sans-serif; color: var(--dark); margin: 0; padding: 0; background: var(--parchment); }
     h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-    .parallax {
-      background-attachment: fixed;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-
+    .parallax { background-attachment: fixed; background-size: cover; background-position: center; position: relative; }
     @media (max-width: 768px) { .parallax { background-attachment: scroll; } }
-
     .parallax-overlay { position: absolute; inset: 0; background: var(--overlay); }
     .parallax-content { position: relative; z-index: 1; }
 
-    #main-nav {
-      position: absolute; top: 0; width: 100%; z-index: 100;
-      background: rgba(44, 24, 16, 0.5);
-      border-bottom: 2px solid rgba(201, 160, 80, 0.6);
-    }
-
-    .nav-link {
-      font-family: 'Lato', sans-serif; font-weight: 700;
-      font-size: 0.8rem; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #e8ddd0;
-      text-decoration: none; padding: 0 4px 2px;
-      border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
-    }
+    #main-nav { position: absolute; top: 0; width: 100%; z-index: 100; background: rgba(44,24,16,0.5); border-bottom: 2px solid rgba(201,160,80,0.6); }
+    .nav-link { font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #e8ddd0; text-decoration: none; padding: 0 4px 2px; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
     .nav-link:hover { color: var(--gold); border-bottom-color: var(--gold); }
-
-    #nav-login-btn {
-      font-family: 'Lato', sans-serif; font-weight: 700;
-      font-size: 0.78rem; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--gold);
-      background: none; border: 1px solid rgba(201,160,80,0.5);
-      border-radius: 2px; padding: 5px 14px; cursor: pointer;
-      transition: background 0.2s;
-    }
+    #nav-login-btn { font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); background: none; border: 1px solid rgba(201,160,80,0.5); border-radius: 2px; padding: 5px 14px; cursor: pointer; transition: background 0.2s; }
     #nav-login-btn:hover { background: rgba(201,160,80,0.15); }
-
-    #admin-badge {
-      display: none; font-family: 'Lato', sans-serif; font-weight: 700;
-      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--dark); background: var(--gold); border-radius: 2px;
-      padding: 4px 10px; text-decoration: none;
-    }
-
-    .sermon-card {
-      background: white; border-radius: 4px;
-      box-shadow: 0 2px 10px rgba(44,24,16,0.08);
-      border-left: 4px solid var(--brown);
-      display: flex; flex-direction: column;
-      overflow: hidden; position: relative;
-    }
-
-    .sermon-card-body {
-      padding: 14px 18px 18px;
-      display: flex; flex-direction: column; gap: 6px;
-      flex: 1;
-    }
-
-    .card-img {
-      width: 100%; aspect-ratio: 38 / 23;
-      object-fit: cover; object-position: center; display: block;
-    }
-
-    .sermon-audio {
-      width: 100%; margin-top: 8px; height: 32px;
-      accent-color: var(--brown);
-    }
-
-    .btn-outline {
-      display: inline-block; border: 2px solid var(--gold);
-      color: var(--gold); font-family: 'Lato', sans-serif;
-      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 12px 34px; border-radius: 2px;
-      text-decoration: none; background: none; cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    .btn-outline:hover { background: var(--gold); color: var(--dark); }
-
-    .btn-gold {
-      display: inline-block; background: var(--gold); color: var(--dark);
-      font-family: 'Lato', sans-serif; font-weight: 700;
-      font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 12px 34px; border-radius: 2px; border: none; cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-gold:hover { background: #d4af62; }
-
+    #admin-badge { display: none; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark); background: var(--gold); border-radius: 2px; padding: 4px 10px; text-decoration: none; }
     #mobile-menu { display: none; background: var(--dark); border-top: 1px solid rgba(201,160,80,0.3); }
     #mobile-menu.open { display: block; }
     #mobile-menu a { display: block; padding: 12px 24px; color: #e8ddd0; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
     #mobile-menu a:hover { color: var(--gold); }
 
+    .thought-card { background: white; border-radius: 4px; box-shadow: 0 2px 10px rgba(44,24,16,0.08); border-left: 4px solid var(--gold); display: flex; flex-direction: column; overflow: hidden; position: relative; }
+    .thought-card-body { padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .card-img { width: 100%; aspect-ratio: 38/23; object-fit: cover; display: block; }
+
+    .btn-outline { display: inline-block; border: 2px solid var(--gold); color: var(--gold); font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 34px; border-radius: 2px; text-decoration: none; background: none; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .btn-outline:hover { background: var(--gold); color: var(--dark); }
+    .btn-gold { display: inline-block; background: var(--gold); color: var(--dark); font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 34px; border-radius: 2px; border: none; cursor: pointer; transition: background 0.2s; }
+    .btn-gold:hover { background: #d4af62; }
+
     .footer-bar { background: var(--dark); color: #a09080; font-size: 0.8rem; padding: 18px 24px; text-align: center; }
     .footer-bar a { color: var(--gold); text-decoration: none; }
-    .footer-bar a:hover { text-decoration: underline; }
-
     .section-rule { width: 60px; height: 3px; background: var(--gold); margin: 0 auto 2rem; }
 
-    /* Admin controls */
-    .card-admin-controls {
-      display: none; position: absolute; top: 8px; right: 8px;
-      gap: 6px; z-index: 10;
-    }
-    .admin-logged-in .card-admin-controls { display: flex; }
-    .section-add-btn {
-      display: none; background: none; border: 1px dashed var(--gold);
-      color: var(--gold); font-family: 'Lato', sans-serif; font-weight: 700;
-      font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 5px 14px; border-radius: 2px; cursor: pointer; margin-left: 16px;
-    }
-    .admin-logged-in .section-add-btn { display: inline-block; }
-
-    .card-admin-btn {
-      background: rgba(44,24,16,0.75); color: #e8ddd0;
-      border: none; border-radius: 3px; width: 30px; height: 30px;
-      font-size: 0.75rem; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s;
-    }
-    .card-admin-btn:hover { background: var(--brown); }
-    .card-admin-btn.delete:hover { background: #8b2222; }
-
-    /* Pagination */
     .pagination { display: flex; gap: 8px; align-items: center; justify-content: center; flex-wrap: wrap; }
-    .page-btn {
-      background: white; border: 1px solid #d0c0b0; color: var(--dark);
-      font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.82rem;
-      padding: 8px 14px; border-radius: 3px; cursor: pointer;
-      transition: background 0.15s;
-    }
+    .page-btn { background: white; border: 1px solid #d0c0b0; color: var(--dark); font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.82rem; padding: 8px 14px; border-radius: 3px; cursor: pointer; transition: background 0.15s; }
     .page-btn:hover, .page-btn.active { background: var(--gold); color: var(--dark); border-color: var(--gold); }
     .page-btn:disabled { opacity: 0.4; cursor: default; }
 
-    /* Modals */
-    .ftw-modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(20,10,5,0.72); z-index: 1000;
-      overflow-y: auto; padding: 40px 20px;
-    }
+    .card-admin-controls { display: none; position: absolute; top: 8px; right: 8px; gap: 6px; z-index: 10; }
+    .admin-logged-in .card-admin-controls { display: flex; }
+    .section-add-btn { display: none; background: none; border: 1px dashed var(--gold); color: var(--gold); font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 2px; cursor: pointer; margin-left: 16px; }
+    .admin-logged-in .section-add-btn { display: inline-block; }
+    .card-admin-btn { background: rgba(44,24,16,0.75); color: #e8ddd0; border: none; border-radius: 3px; width: 30px; height: 30px; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+    .card-admin-btn:hover { background: var(--brown); }
+    .card-admin-btn.delete:hover { background: #8b2222; }
+
+    .ftw-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(20,10,5,0.72); z-index: 1000; overflow-y: auto; padding: 40px 20px; }
     .ftw-modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
     .ftw-modal { background: var(--cream); border-radius: 4px; width: 100%; max-width: 540px; box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
     .ftw-modal-header { background: var(--dark); border-bottom: 3px solid var(--gold); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; border-radius: 4px 4px 0 0; }
@@ -186,6 +81,8 @@
     .ftw-label { display: block; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brown); margin-bottom: 5px; }
     .ftw-input { width: 100%; padding: 9px 12px; border: 1px solid #d0c0b0; border-radius: 3px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: var(--dark); background: white; outline: none; transition: border-color 0.15s; }
     .ftw-input:focus { border-color: var(--gold); }
+    .ftw-textarea { width: 100%; padding: 9px 12px; border: 1px solid #d0c0b0; border-radius: 3px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: var(--dark); background: white; outline: none; transition: border-color 0.15s; resize: vertical; min-height: 120px; }
+    .ftw-textarea:focus { border-color: var(--gold); }
     .ftw-media-tabs { display: flex; gap: 0; margin-bottom: 8px; }
     .ftw-tab { font-family: 'Lato', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 5px 12px; background: white; border: 1px solid #d0c0b0; cursor: pointer; color: #8a6050; }
     .ftw-tab:first-child { border-radius: 3px 0 0 3px; }
@@ -194,32 +91,25 @@
     .ftw-upload-progress { font-size: 0.8rem; color: var(--brown); font-style: italic; display: none; }
     .ftw-img-preview { max-width: 100%; max-height: 120px; border-radius: 3px; border: 1px solid #d0c0b0; object-fit: cover; display: none; }
     .content-error { color: #8a6050; font-style: italic; font-size: 0.9rem; padding: 20px 0; text-align: center; }
-
-    /* Login modal */
-    #login-modal .ftw-modal { max-width: 400px; }
   </style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <nav id="main-nav">
   <div style="max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;">
     <a href="index.html" style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#faf6f0;text-decoration:none;font-weight:600;letter-spacing:0.02em;">The Way</a>
     <div id="desktop-links" style="display:flex;gap:24px;align-items:center;">
-      <a href="index.html#home"     class="nav-link">Home</a>
-      <a href="index.html#about"    class="nav-link">About Us</a>
-      <a href="index.html#gospel"   class="nav-link">The Gospel</a>
-      <a href="sermons.html"        class="nav-link" style="color:var(--gold);border-bottom-color:var(--gold);">Sermons</a>
-      <a href="events.html"         class="nav-link">Events</a>
-      <a href="thoughts.html"       class="nav-link">Thoughts</a>
-      <a href="index.html#contact"  class="nav-link">Contact</a>
+      <a href="index.html#home"    class="nav-link">Home</a>
+      <a href="index.html#gospel"  class="nav-link">The Gospel</a>
+      <a href="sermons.html"       class="nav-link">Sermons</a>
+      <a href="events.html"        class="nav-link">Events</a>
+      <a href="thoughts.html"      class="nav-link" style="color:var(--gold);border-bottom-color:var(--gold);">Thoughts</a>
+      <a href="index.html#contact" class="nav-link">Contact</a>
       <a id="admin-badge" href="admin.html">Admin</a>
       <button id="nav-login-btn" onclick="handleLoginClick()">Login</button>
     </div>
-    <button id="hamburger" aria-label="Menu" style="display:none;background:none;border:none;color:#e8ddd0;font-size:1.4rem;cursor:pointer;padding:4px 8px;">
-      <i class="fa-solid fa-bars"></i>
-    </button>
+    <button id="hamburger" aria-label="Menu" style="display:none;background:none;border:none;color:#e8ddd0;font-size:1.4rem;cursor:pointer;padding:4px 8px;"><i class="fa-solid fa-bars"></i></button>
   </div>
   <div id="mobile-menu">
     <a href="index.html"     onclick="closeMobile()">Home</a>
@@ -230,13 +120,11 @@
   </div>
 </nav>
 
-
-<!-- HERO -->
-<div class="parallax" style="background-image:url('assets/4-sunriseservice-cleaned.png');min-height:50vh;display:flex;align-items:center;justify-content:center;">
-  <div class="parallax-overlay"></div>
+<div class="parallax" style="background-image:url('assets/3-Sundayservice.jpeg');min-height:50vh;display:flex;align-items:center;justify-content:center;">
+  <div class="parallax-overlay" style="background:rgba(20,10,5,0.52);"></div>
   <div class="parallax-content" style="text-align:center;padding:0 24px;">
     <h1 style="font-family:'Montserrat',sans-serif;font-size:clamp(2.8rem,8vw,5.5rem);color:#faf6f0;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;text-shadow:0 3px 20px rgba(0,0,0,0.6);margin-bottom:0.5rem;">
-      Sermons Archive
+      Thoughts
     </h1>
     <p style="font-family:'Montserrat',sans-serif;font-size:0.85rem;color:var(--gold);letter-spacing:0.18em;text-transform:uppercase;font-weight:700;">
       The Way — Savoy, Texas
@@ -244,20 +132,18 @@
   </div>
 </div>
 
-
-<!-- SERMONS LIST -->
 <section style="padding:80px 24px;max-width:1100px;margin:0 auto;">
   <div style="text-align:center;margin-bottom:3rem;">
     <div style="display:inline-flex;align-items:baseline;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:0.4rem;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--brown);margin:0;">All Sermons</h2>
-      <button class="section-add-btn" onclick="openSermonModal()"><i class="fa-solid fa-plus"></i> Add Sermon</button>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--brown);margin:0;">All Thoughts</h2>
+      <button class="section-add-btn" onclick="openThoughtModal()"><i class="fa-solid fa-plus"></i> Add Thought</button>
     </div>
     <div class="section-rule"></div>
-    <p id="sermon-count" style="color:#7a5040;font-size:0.95rem;"></p>
+    <p id="thought-count" style="color:#7a5040;font-size:0.95rem;"></p>
   </div>
 
-  <div id="sermons-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
-    <p class="content-error">Loading sermons…</p>
+  <div id="thoughts-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+    <p class="content-error">Loading thoughts…</p>
   </div>
 
   <div id="pagination" style="margin-top:3rem;text-align:center;"></div>
@@ -269,8 +155,6 @@
   </div>
 </section>
 
-
-<!-- FOOTER -->
 <div class="parallax" style="background-image:url('assets/6-guatemala.jpeg');background-position:top;min-height:25vh;display:flex;align-items:center;justify-content:center;">
   <div class="parallax-overlay"></div>
   <div class="parallax-content" style="text-align:center;padding:0 24px;">
@@ -279,18 +163,13 @@
   </div>
 </div>
 
-<div class="footer-bar">
-  &copy; <span id="year"></span> The Way &nbsp;·&nbsp; 308 E Fowler Street, Savoy, TX 75479
-</div>
+<div class="footer-bar">&copy; <span id="year"></span> The Way &nbsp;·&nbsp; 308 E Fowler Street, Savoy, TX 75479</div>
 
 
 <!-- Login Modal -->
 <div id="login-modal" class="ftw-modal-overlay" onclick="overlayClose(event,'login-modal')">
-  <div class="ftw-modal">
-    <div class="ftw-modal-header">
-      <h3>Sign In</h3>
-      <button class="ftw-modal-close" onclick="closeModal('login-modal')">&times;</button>
-    </div>
+  <div class="ftw-modal" style="max-width:400px;">
+    <div class="ftw-modal-header"><h3>Sign In</h3><button class="ftw-modal-close" onclick="closeModal('login-modal')">&times;</button></div>
     <div class="ftw-modal-body">
       <div><label class="ftw-label">Email</label><input id="login-email" class="ftw-input" type="email" /></div>
       <div><label class="ftw-label">Password</label><input id="login-password" class="ftw-input" type="password" /></div>
@@ -303,52 +182,34 @@
   </div>
 </div>
 
-<!-- Sermon Modal -->
-<div id="sermon-modal" class="ftw-modal-overlay" onclick="overlayClose(event,'sermon-modal')">
+<!-- Thought Modal -->
+<div id="thought-modal" class="ftw-modal-overlay" onclick="overlayClose(event,'thought-modal')">
   <div class="ftw-modal">
-    <div class="ftw-modal-header">
-      <h3 id="sermon-modal-title">Add Sermon</h3>
-      <button class="ftw-modal-close" onclick="closeModal('sermon-modal')">&times;</button>
-    </div>
+    <div class="ftw-modal-header"><h3 id="thought-modal-title">Add Thought</h3><button class="ftw-modal-close" onclick="closeModal('thought-modal')">&times;</button></div>
     <div class="ftw-modal-body">
-      <input type="hidden" id="sermon-id" />
-      <div><label class="ftw-label">Title</label><input id="sermon-title" class="ftw-input" type="text" /></div>
-      <div><label class="ftw-label">Speaker</label><input id="sermon-speaker" class="ftw-input" type="text" /></div>
-      <div><label class="ftw-label">Date</label><input id="sermon-date" class="ftw-input" type="date" /></div>
+      <input type="hidden" id="thought-id" />
+      <div><label class="ftw-label">Title</label><input id="thought-title" class="ftw-input" type="text" /></div>
+      <div><label class="ftw-label">Author</label><input id="thought-author" class="ftw-input" type="text" /></div>
+      <div><label class="ftw-label">Publish Date</label><input id="thought-publish_date" class="ftw-input" type="date" /></div>
       <div>
-        <label class="ftw-label">Sermon Image</label>
+        <label class="ftw-label">Image <span style="font-weight:400;text-transform:none;font-size:0.75rem;color:#8a6050;">(optional)</span></label>
         <div class="ftw-media-tabs">
-          <button class="ftw-tab active" onclick="switchTab('sermon-img','upload')">Upload File</button>
-          <button class="ftw-tab"        onclick="switchTab('sermon-img','url')">Use URL</button>
+          <button class="ftw-tab active" onclick="switchTab('thought-img','upload')">Upload File</button>
+          <button class="ftw-tab"        onclick="switchTab('thought-img','url')">Use URL</button>
         </div>
-        <div id="sermon-img-upload-panel">
-          <input id="sermon-img-file" class="ftw-input" type="file" accept="image/*" onchange="uploadMedia(this,'sermons','image','sermon-image_url','sermon-img-preview','sermon-img-progress')" />
-          <span id="sermon-img-progress" class="ftw-upload-progress">Uploading…</span>
+        <div id="thought-img-upload-panel">
+          <input id="thought-img-file" class="ftw-input" type="file" accept="image/*" onchange="uploadMedia(this,'thoughts','image','thought-image_url','thought-img-preview','thought-img-progress')" />
+          <span id="thought-img-progress" class="ftw-upload-progress">Uploading…</span>
         </div>
-        <div id="sermon-img-url-panel" style="display:none;">
-          <input id="sermon-image_url" class="ftw-input" type="url" placeholder="https://…" />
-        </div>
-        <img id="sermon-img-preview" class="ftw-img-preview" alt="preview" />
+        <div id="thought-img-url-panel" style="display:none;"><input id="thought-image_url" class="ftw-input" type="url" placeholder="https://…" /></div>
+        <img id="thought-img-preview" class="ftw-img-preview" alt="preview" />
       </div>
-      <div>
-        <label class="ftw-label">MP3 Audio</label>
-        <div class="ftw-media-tabs">
-          <button class="ftw-tab active" onclick="switchTab('sermon-mp3','upload')">Upload File</button>
-          <button class="ftw-tab"        onclick="switchTab('sermon-mp3','url')">Use URL</button>
-        </div>
-        <div id="sermon-mp3-upload-panel">
-          <input id="sermon-mp3-file" class="ftw-input" type="file" accept="audio/*" onchange="uploadMedia(this,'sermons','audio','sermon-mp3_url',null,'sermon-mp3-progress')" />
-          <span id="sermon-mp3-progress" class="ftw-upload-progress">Uploading…</span>
-        </div>
-        <div id="sermon-mp3-url-panel" style="display:none;">
-          <input id="sermon-mp3_url" class="ftw-input" type="url" placeholder="https://…" />
-        </div>
-      </div>
-      <p id="sermon-error" style="color:#8b2222;font-size:0.85rem;display:none;"></p>
+      <div><label class="ftw-label">Body</label><textarea id="thought-body" class="ftw-textarea" style="min-height:180px;"></textarea></div>
+      <p id="thought-error" style="color:#8b2222;font-size:0.85rem;display:none;"></p>
     </div>
     <div class="ftw-modal-footer">
-      <button class="btn-outline" style="padding:10px 20px;font-size:0.8rem;" onclick="closeModal('sermon-modal')">Cancel</button>
-      <button class="btn-gold"   style="padding:10px 24px;font-size:0.8rem;" onclick="submitSermon()">Save</button>
+      <button class="btn-outline" style="padding:10px 20px;font-size:0.8rem;" onclick="closeModal('thought-modal')">Cancel</button>
+      <button class="btn-gold"   style="padding:10px 24px;font-size:0.8rem;" onclick="submitThought()">Save</button>
     </div>
   </div>
 </div>
@@ -357,30 +218,20 @@
 <script>
   const API = '/api';
   window.FTW = { user: null };
-
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Nav
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
   const desktopLinks = document.getElementById('desktop-links');
-
   function applyNavLayout() {
-    if (window.innerWidth < 768) {
-      hamburger.style.display = 'block';
-      desktopLinks.style.display = 'none';
-    } else {
-      hamburger.style.display = 'none';
-      desktopLinks.style.display = 'flex';
-      mobileMenu.classList.remove('open');
-    }
+    if (window.innerWidth < 768) { hamburger.style.display = 'block'; desktopLinks.style.display = 'none'; }
+    else { hamburger.style.display = 'none'; desktopLinks.style.display = 'flex'; mobileMenu.classList.remove('open'); }
   }
   hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
   window.addEventListener('resize', applyNavLayout);
   applyNavLayout();
   function closeMobile() { mobileMenu.classList.remove('open'); }
 
-  // Auth
   async function apiFetch(path, options = {}) {
     const token = localStorage.getItem('ftw_token');
     const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
@@ -393,10 +244,8 @@
   async function initAuth() {
     const token = localStorage.getItem('ftw_token');
     if (!token) { applyAuthUI(null); return; }
-    try {
-      const res = await apiFetch('/auth/me');
-      window.FTW.user = res.ok ? await res.json() : null;
-    } catch (e) { window.FTW.user = null; }
+    try { const res = await apiFetch('/auth/me'); window.FTW.user = res.ok ? await res.json() : null; }
+    catch (e) { window.FTW.user = null; }
     applyAuthUI(window.FTW.user);
   }
 
@@ -408,15 +257,8 @@
     else         document.body.classList.remove('admin-logged-in');
   }
 
-  function handleLoginClick() {
-    if (window.FTW.user) { logout(); } else { openModal('login-modal'); }
-  }
-
-  function logout() {
-    localStorage.removeItem('ftw_token');
-    window.FTW.user = null;
-    applyAuthUI(null);
-  }
+  function handleLoginClick() { if (window.FTW.user) { logout(); } else { openModal('login-modal'); } }
+  function logout() { localStorage.removeItem('ftw_token'); window.FTW.user = null; applyAuthUI(null); }
 
   async function submitLogin() {
     const email = document.getElementById('login-email').value.trim();
@@ -434,18 +276,15 @@
     } catch (e) { errEl.textContent = 'Network error.'; errEl.style.display = 'block'; }
   }
 
-  function openModal(id) { document.getElementById(id).classList.add('open'); }
+  function openModal(id)  { document.getElementById(id).classList.add('open'); }
   function closeModal(id) { document.getElementById(id).classList.remove('open'); }
   function overlayClose(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.querySelectorAll('.ftw-modal-overlay.open').forEach(el => el.classList.remove('open'));
-  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.ftw-modal-overlay.open').forEach(el => el.classList.remove('open')); });
 
   function switchTab(prefix, mode) {
     const uploadPanel = document.getElementById(prefix + '-upload-panel');
     const urlPanel    = document.getElementById(prefix + '-url-panel');
-    const tabContainer = uploadPanel.previousElementSibling;
-    tabContainer.querySelectorAll('.ftw-tab').forEach((t, i) => {
+    uploadPanel.previousElementSibling.querySelectorAll('.ftw-tab').forEach((t, i) => {
       t.classList.toggle('active', (i === 0 && mode === 'upload') || (i === 1 && mode === 'url'));
     });
     uploadPanel.style.display = mode === 'upload' ? 'block' : 'none';
@@ -453,14 +292,11 @@
   }
 
   async function uploadMedia(input, type, fileType, urlFieldId, previewId, progressId) {
-    const file = input.files[0];
-    if (!file) return;
+    const file = input.files[0]; if (!file) return;
     const progress = document.getElementById(progressId);
     progress.style.display = 'inline';
     const form = new FormData();
-    form.append('type', type);
-    form.append('file_type', fileType);
-    form.append('file', file);
+    form.append('type', type); form.append('file_type', fileType); form.append('file', file);
     try {
       const token = localStorage.getItem('ftw_token');
       const res   = await fetch(API + '/upload', { method: 'POST', headers: token ? { 'Authorization': 'Bearer ' + token } : {}, body: form });
@@ -477,52 +313,49 @@
     const [y, m, d] = str.split('-');
     return new Date(+y, +m - 1, +d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   }
-
   function escHtml(s) {
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
-  // Pagination state
   let currentPage = 1;
-  const PER_PAGE  = 20;
+  const PER_PAGE  = 12;
 
-  async function loadSermons(page = 1) {
+  async function loadThoughts(page = 1) {
     currentPage = page;
-    const grid = document.getElementById('sermons-grid');
+    const grid = document.getElementById('thoughts-grid');
     grid.innerHTML = '<p class="content-error">Loading…</p>';
     try {
-      const res  = await fetch(`${API}/sermons/all?page=${page}&per_page=${PER_PAGE}`);
+      const res  = await fetch(`${API}/thoughts/all?page=${page}&per_page=${PER_PAGE}`);
       const data = await res.json();
       if (!data.items || !data.items.length) {
-        grid.innerHTML = '<p class="content-error">No sermons found.</p>';
-        document.getElementById('sermon-count').textContent = '';
+        grid.innerHTML = '<p class="content-error">No thoughts posted yet. Check back soon.</p>';
+        document.getElementById('thought-count').textContent = '';
         document.getElementById('pagination').innerHTML = '';
         return;
       }
-      document.getElementById('sermon-count').textContent =
-        `Showing ${(page - 1) * PER_PAGE + 1}–${Math.min(page * PER_PAGE, data.total)} of ${data.total} sermons`;
-      grid.innerHTML = data.items.map(s => sermonCard(s)).join('');
+      document.getElementById('thought-count').textContent =
+        `Showing ${(page - 1) * PER_PAGE + 1}–${Math.min(page * PER_PAGE, data.total)} of ${data.total} entries`;
+      grid.innerHTML = data.items.map(t => thoughtCard(t)).join('');
       renderPagination(data.total, page, PER_PAGE);
     } catch (e) {
       grid.innerHTML = '<p class="content-error">Content temporarily unavailable.</p>';
     }
   }
 
-  function sermonCard(s) {
-    const img = s.image_url
-      ? `<img class="card-img" src="${escHtml(s.image_url)}" alt="${escHtml(s.title)}" onerror="this.style.display='none'" />`
-      : '';
+  function thoughtCard(t) {
+    const img = t.image_url ? `<img class="card-img" src="${escHtml(t.image_url)}" alt="${escHtml(t.title)}" onerror="this.style.display='none'" />` : '';
+    const excerpt = t.body.length > 200 ? escHtml(t.body.slice(0, 200)) + '…' : escHtml(t.body);
     return `
-      <div class="sermon-card" data-id="${s.id}">
+      <div class="thought-card" data-id="${t.id}">
         <div class="card-admin-controls">
-          <button class="card-admin-btn" onclick="editSermon(${s.id})"><i class="fa-solid fa-pencil"></i></button>
-          <button class="card-admin-btn delete" onclick="deleteSermon(${s.id})"><i class="fa-solid fa-trash"></i></button>
+          <button class="card-admin-btn" onclick="editThought(${t.id})"><i class="fa-solid fa-pencil"></i></button>
+          <button class="card-admin-btn delete" onclick="deleteThought(${t.id})"><i class="fa-solid fa-trash"></i></button>
         </div>
         ${img}
-        <div class="sermon-card-body">
-          <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">${escHtml(s.title)}</div>
-          <div style="font-size:0.82rem;color:#8a6050;">${escHtml(s.speaker)} &nbsp;·&nbsp; ${fmtDate(s.date)}</div>
-          <audio class="sermon-audio" controls src="${escHtml(s.mp3_url)}" preload="none"></audio>
+        <div class="thought-card-body">
+          <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">${escHtml(t.title)}</div>
+          <div style="font-size:0.78rem;color:#8a6050;">${escHtml(t.author)} &nbsp;·&nbsp; ${fmtDate(t.publish_date)}</div>
+          <div style="font-size:0.88rem;color:#5a3a28;line-height:1.7;margin-top:4px;">${excerpt}</div>
         </div>
       </div>`;
   }
@@ -531,67 +364,63 @@
     const pages = Math.ceil(total / perPage);
     if (pages <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
     let html = '<div class="pagination">';
-    html += `<button class="page-btn" onclick="loadSermons(${current - 1})" ${current === 1 ? 'disabled' : ''}>&laquo; Prev</button>`;
+    html += `<button class="page-btn" onclick="loadThoughts(${current - 1})" ${current === 1 ? 'disabled' : ''}>&laquo; Prev</button>`;
     for (let i = 1; i <= pages; i++) {
       if (pages > 7 && Math.abs(i - current) > 2 && i !== 1 && i !== pages) {
         if (i === current - 3 || i === current + 3) html += '<span style="padding:0 4px;color:#8a6050;">…</span>';
         continue;
       }
-      html += `<button class="page-btn ${i === current ? 'active' : ''}" onclick="loadSermons(${i})">${i}</button>`;
+      html += `<button class="page-btn ${i === current ? 'active' : ''}" onclick="loadThoughts(${i})">${i}</button>`;
     }
-    html += `<button class="page-btn" onclick="loadSermons(${current + 1})" ${current === pages ? 'disabled' : ''}>Next &raquo;</button>`;
+    html += `<button class="page-btn" onclick="loadThoughts(${current + 1})" ${current === pages ? 'disabled' : ''}>Next &raquo;</button>`;
     html += '</div>';
     document.getElementById('pagination').innerHTML = html;
   }
 
-  // Sermon CRUD
-  function openSermonModal(s = null) {
-    document.getElementById('sermon-modal-title').textContent = s ? 'Edit Sermon' : 'Add Sermon';
-    document.getElementById('sermon-id').value        = s?.id || '';
-    document.getElementById('sermon-title').value     = s?.title || '';
-    document.getElementById('sermon-speaker').value   = s?.speaker || '';
-    document.getElementById('sermon-date').value      = s?.date || '';
-    document.getElementById('sermon-image_url').value = s?.image_url || '';
-    document.getElementById('sermon-mp3_url').value   = s?.mp3_url || '';
-    const preview = document.getElementById('sermon-img-preview');
-    preview.src = s?.image_url || ''; preview.style.display = s?.image_url ? 'block' : 'none';
-    document.getElementById('sermon-error').style.display = 'none';
-    openModal('sermon-modal');
+  function openThoughtModal(t = null) {
+    document.getElementById('thought-modal-title').textContent = t ? 'Edit Thought' : 'Add Thought';
+    document.getElementById('thought-id').value           = t?.id || '';
+    document.getElementById('thought-title').value        = t?.title || '';
+    document.getElementById('thought-author').value       = t?.author || '';
+    document.getElementById('thought-publish_date').value = t?.publish_date || '';
+    document.getElementById('thought-image_url').value    = t?.image_url || '';
+    document.getElementById('thought-body').value         = t?.body || '';
+    const preview = document.getElementById('thought-img-preview');
+    preview.src = t?.image_url || ''; preview.style.display = t?.image_url ? 'block' : 'none';
+    document.getElementById('thought-error').style.display = 'none';
+    openModal('thought-modal');
   }
 
-  async function editSermon(id) {
-    const res  = await apiFetch('/sermons/' + id);
-    openSermonModal(await res.json());
-  }
+  async function editThought(id) { const res = await apiFetch('/thoughts/' + id); openThoughtModal(await res.json()); }
 
-  async function submitSermon() {
-    const id = document.getElementById('sermon-id').value;
+  async function submitThought() {
+    const id = document.getElementById('thought-id').value;
     const payload = {
-      title:     document.getElementById('sermon-title').value.trim(),
-      speaker:   document.getElementById('sermon-speaker').value.trim(),
-      date:      document.getElementById('sermon-date').value,
-      image_url: document.getElementById('sermon-image_url').value.trim(),
-      mp3_url:   document.getElementById('sermon-mp3_url').value.trim(),
+      title:        document.getElementById('thought-title').value.trim(),
+      author:       document.getElementById('thought-author').value.trim(),
+      publish_date: document.getElementById('thought-publish_date').value,
+      image_url:    document.getElementById('thought-image_url').value.trim(),
+      body:         document.getElementById('thought-body').value.trim(),
     };
-    const errEl = document.getElementById('sermon-error');
+    const errEl = document.getElementById('thought-error');
     errEl.style.display = 'none';
     try {
-      const res  = await apiFetch(id ? '/sermons/' + id : '/sermons', { method: id ? 'PUT' : 'POST', body: JSON.stringify(payload) });
+      const res  = await apiFetch(id ? '/thoughts/' + id : '/thoughts', { method: id ? 'PUT' : 'POST', body: JSON.stringify(payload) });
       const data = await res.json();
       if (!res.ok) { errEl.textContent = data.error || 'Save failed'; errEl.style.display = 'block'; return; }
-      closeModal('sermon-modal');
-      loadSermons(currentPage);
+      closeModal('thought-modal');
+      loadThoughts(currentPage);
     } catch (e) { errEl.textContent = 'Network error.'; errEl.style.display = 'block'; }
   }
 
-  async function deleteSermon(id) {
-    if (!confirm('Delete this sermon? This cannot be undone.')) return;
-    await apiFetch('/sermons/' + id, { method: 'DELETE' });
-    loadSermons(currentPage);
+  async function deleteThought(id) {
+    if (!confirm('Delete this thought? This cannot be undone.')) return;
+    await apiFetch('/thoughts/' + id, { method: 'DELETE' });
+    loadThoughts(currentPage);
   }
 
   initAuth();
-  loadSermons(1);
+  loadThoughts(1);
 </script>
 
 </body>

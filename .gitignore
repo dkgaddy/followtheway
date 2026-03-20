@@ -1,0 +1,11 @@
+# Server config — contains DB credentials and JWT secret
+api/config.php
+
+# Uploaded media — created on server, not tracked in repo
+uploads/
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
