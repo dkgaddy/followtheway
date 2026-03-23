@@ -271,7 +271,11 @@
     try {
       const res  = await apiFetch('/users');
       const data = await res.json();
-      if (!res.ok || !data.length) {
+      if (!res.ok) {
+        tbody.innerHTML = '<tr><td colspan="5" class="content-error">Failed to load users.</td></tr>';
+        return;
+      }
+      if (!Array.isArray(data) || !data.length) {
         tbody.innerHTML = '<tr><td colspan="5" class="content-error">No users found.</td></tr>';
         return;
       }
@@ -313,6 +317,7 @@
 
   async function editUser(id) {
     const res  = await apiFetch('/users/' + id);
+    if (!res.ok) { alert('Failed to load user.'); return; }
     const data = await res.json();
     openUserModal(data);
   }
@@ -343,7 +348,7 @@
       const data = await res.json();
       if (!res.ok) { errEl.textContent = data.error || 'Save failed'; errEl.style.display = 'block'; return; }
       closeModal('user-modal');
-      loadUsers();
+      await loadUsers();
     } catch (e) { errEl.textContent = 'Network error.'; errEl.style.display = 'block'; }
   }
 
