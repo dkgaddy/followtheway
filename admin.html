@@ -223,7 +223,7 @@
     const token = localStorage.getItem('ftw_token');
     const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
     if (token) headers['Authorization'] = 'Bearer ' + token;
-    const res = await fetch(API + path, { ...options, headers });
+    const res = await fetch(API + path, { cache: 'no-store', ...options, headers });
     if (res.status === 401) { localStorage.removeItem('ftw_token'); window.FTW.user = null; }
     return res;
   }
