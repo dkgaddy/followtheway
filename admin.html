@@ -24,7 +24,7 @@
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Lato', sans-serif; color: var(--dark); margin: 0; padding: 0; background: var(--cream); }
+    body { font-family: 'Lato', sans-serif; color: var(--dark); margin: 0; padding: 0; background: var(--cream); display: flex; flex-direction: column; min-height: 100vh; }
     h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
     .parallax { background-attachment: fixed; background-size: cover; background-position: center; position: relative; }
@@ -116,7 +116,7 @@
 </div>
 
 <!-- Users table -->
-<section style="padding:60px 24px 80px;max-width:1000px;margin:0 auto;">
+<section style="padding:60px 24px 80px;max-width:1000px;margin:0 auto;width:100%;flex:1;box-sizing:border-box;">
 
   <div id="access-denied" style="display:none;text-align:center;padding:60px 24px;">
     <div style="font-size:3rem;color:var(--gold);margin-bottom:16px;"><i class="fa-solid fa-lock"></i></div>
