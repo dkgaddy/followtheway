@@ -1397,6 +1397,12 @@
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
+  function sentenceExcerpt(text, n) {
+    const sentences = text.match(/[^.!?]+[.!?]+/g);
+    const raw = sentences ? sentences.slice(0, n).join(' ').trim() : text.slice(0, 200);
+    return escHtml(raw);
+  }
+
   // ── SERMONS ────────────────────────────────────────────────────────────────
   async function loadSermons() {
     const grid = document.getElementById('sermons-grid');
@@ -1603,7 +1609,7 @@
     const img = t.image_url
       ? `<img class="card-img" src="${escHtml(t.image_url)}" alt="${escHtml(t.title)}" onerror="this.style.display='none'" />`
       : '';
-    const excerpt = t.body.length > 200 ? escHtml(t.body.slice(0, 200)) + '…' : escHtml(t.body);
+    const excerpt = sentenceExcerpt(t.body, 2);
     return `
       <div class="thought-card" data-id="${t.id}">
         ${adminControls}
@@ -1611,7 +1617,8 @@
         <div class="thought-card-body">
           <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">${escHtml(t.title)}</div>
           <div style="font-size:0.78rem;color:#8a6050;">${escHtml(t.author)} &nbsp;·&nbsp; ${fmtDate(t.publish_date)}</div>
-          <div style="font-size:0.88rem;color:#5a3a28;line-height:1.7;margin-top:4px;">${excerpt}</div>
+          <div style="font-size:0.88rem;color:#5a3a28;line-height:1.7;margin-top:4px;">${excerpt}…</div>
+          <a href="thought.html?id=${t.id}" style="display:inline-block;margin-top:10px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--brown);text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:1px;">Read More</a>
         </div>
       </div>`;
   }
