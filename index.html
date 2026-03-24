@@ -249,7 +249,10 @@
       flex-direction: column;
       overflow: hidden;
       position: relative;
+      height: 400px;
     }
+
+    .thought-card .card-img { height: 155px; aspect-ratio: unset; }
 
     .thought-card-body {
       padding: 14px 18px 18px;
@@ -257,6 +260,7 @@
       flex-direction: column;
       gap: 6px;
       flex: 1;
+      min-height: 0;
     }
 
     /* ── Card thumbnail ── */
@@ -1617,8 +1621,8 @@
         <div class="thought-card-body">
           <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">${escHtml(t.title)}</div>
           <div style="font-size:0.78rem;color:#8a6050;">${escHtml(t.author)} &nbsp;·&nbsp; ${fmtDate(t.publish_date)}</div>
-          <div style="font-size:0.88rem;color:#5a3a28;line-height:1.7;margin-top:4px;">${excerpt}…</div>
-          <a href="thought.html?id=${t.id}" style="display:inline-block;margin-top:10px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--brown);text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:1px;">Read More</a>
+          <div style="font-size:0.88rem;color:#5a3a28;line-height:1.7;margin-top:4px;flex:1;overflow:hidden;">${excerpt}…</div>
+          <a href="thought.html?id=${t.id}" style="display:inline-block;margin-top:auto;padding-top:8px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--brown);text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:1px;">Read More</a>
         </div>
       </div>`;
   }

@@ -43,8 +43,9 @@
     #mobile-menu a { display: block; padding: 12px 24px; color: #e8ddd0; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
     #mobile-menu a:hover { color: var(--gold); }
 
-    .thought-card { background: white; border-radius: 4px; box-shadow: 0 2px 10px rgba(44,24,16,0.08); border-left: 4px solid var(--gold); display: flex; flex-direction: column; overflow: hidden; position: relative; }
-    .thought-card-body { padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .thought-card { background: white; border-radius: 4px; box-shadow: 0 2px 10px rgba(44,24,16,0.08); border-left: 4px solid var(--gold); display: flex; flex-direction: column; overflow: hidden; position: relative; height: 400px; }
+    .thought-card .card-img { height: 155px; aspect-ratio: unset; }
+    .thought-card-body { padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; min-height: 0; }
     .card-img { width: 100%; aspect-ratio: 38/23; object-fit: cover; display: block; }
 
     .btn-outline { display: inline-block; border: 2px solid var(--gold); color: var(--gold); font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 34px; border-radius: 2px; text-decoration: none; background: none; cursor: pointer; transition: background 0.2s, color 0.2s; }
@@ -360,8 +361,8 @@
         <div class="thought-card-body">
           <div style="font-size:1rem;font-weight:700;color:var(--dark);font-family:'Playfair Display',serif;">${escHtml(t.title)}</div>
           <div style="font-size:0.78rem;color:#8a6050;">${escHtml(t.author)} &nbsp;·&nbsp; ${fmtDate(t.publish_date)}</div>
-          <div style="font-size:0.88rem;color:#5a3a28;line-height:1.7;margin-top:4px;">${excerpt}…</div>
-          <a href="thought.html?id=${t.id}" style="display:inline-block;margin-top:10px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--brown);text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:1px;">Read More</a>
+          <div style="font-size:0.88rem;color:#5a3a28;line-height:1.7;margin-top:4px;flex:1;overflow:hidden;">${excerpt}…</div>
+          <a href="thought.html?id=${t.id}" style="display:inline-block;margin-top:auto;padding-top:8px;font-family:'Lato',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--brown);text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:1px;">Read More</a>
         </div>
       </div>`;
   }
