@@ -52,6 +52,7 @@
     .ftw-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(20,10,5,0.72); z-index: 1000; overflow-y: auto; padding: 40px 20px; }
     .ftw-modal-overlay.open { display: flex; align-items: center; justify-content: center; }
     .ftw-modal { background: var(--cream); border-radius: 4px; width: 100%; max-width: 400px; box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
+    .ftw-modal.wide { max-width: 540px; }
     .ftw-modal-header { background: var(--dark); border-bottom: 3px solid var(--gold); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; border-radius: 4px 4px 0 0; }
     .ftw-modal-header h3 { font-family: 'Playfair Display', serif; color: var(--cream); font-size: 1.1rem; margin: 0; }
     .ftw-modal-close { background: none; border: none; color: #a09080; font-size: 1.2rem; cursor: pointer; padding: 0; }
@@ -65,6 +66,17 @@
     .btn-outline:hover { background: var(--gold); color: var(--dark); }
     .btn-gold { display: inline-block; background: var(--gold); color: var(--dark); font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 34px; border-radius: 2px; border: none; cursor: pointer; transition: background 0.2s; }
     .btn-gold:hover { background: #d4af62; }
+    .ftw-media-tabs { display: flex; gap: 0; margin-bottom: 8px; }
+    .ftw-tab { font-family: 'Lato', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 5px 12px; background: white; border: 1px solid #d0c0b0; cursor: pointer; color: #8a6050; }
+    .ftw-tab:first-child { border-radius: 3px 0 0 3px; }
+    .ftw-tab:last-child  { border-radius: 0 3px 3px 0; border-left: none; }
+    .ftw-tab.active { background: var(--parchment); color: var(--brown); }
+    .ftw-upload-progress { font-size: 0.8rem; color: var(--brown); font-style: italic; display: none; }
+    .ftw-img-preview { max-width: 100%; max-height: 120px; border-radius: 3px; border: 1px solid #d0c0b0; object-fit: cover; display: none; }
+    .ftw-textarea { width: 100%; padding: 9px 12px; border: 1px solid #d0c0b0; border-radius: 3px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: var(--dark); background: white; outline: none; transition: border-color 0.15s; resize: vertical; min-height: 120px; }
+    .ftw-textarea:focus { border-color: var(--gold); }
+    #edit-post-btn { display: none; }
+    .admin-logged-in #edit-post-btn { display: inline-block; }
   </style>
 </head>
 
@@ -113,6 +125,16 @@
 
     <hr style="border:none;border-top:2px solid var(--gold);opacity:0.4;margin:3rem 0 2rem;" />
 
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:2rem;">
+      <div>
+        <div id="post-author" style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--brown);font-weight:600;"></div>
+        <div id="post-date"   style="font-family:'Lato',sans-serif;font-size:0.82rem;color:#8a6050;margin-top:2px;"></div>
+      </div>
+      <button id="edit-post-btn" class="btn-gold" style="padding:9px 22px;font-size:0.8rem;" onclick="openEditModal()">
+        <i class="fa-solid fa-pencil"></i> &nbsp;Edit Post
+      </button>
+    </div>
+
     <div style="text-align:center;">
       <a href="thoughts.html" style="font-family:'Lato',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--brown);text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:2px;">
         <i class="fa-solid fa-arrow-left"></i> &nbsp;Back to All Thoughts
@@ -144,6 +166,39 @@
     <div class="ftw-modal-footer">
       <button class="btn-outline" style="padding:10px 20px;font-size:0.8rem;" onclick="closeModal('login-modal')">Cancel</button>
       <button class="btn-gold"   style="padding:10px 24px;font-size:0.8rem;" onclick="submitLogin()">Sign In</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Thought Edit Modal -->
+<div id="thought-modal" class="ftw-modal-overlay" onclick="overlayClose(event,'thought-modal')">
+  <div class="ftw-modal wide">
+    <div class="ftw-modal-header"><h3>Edit Thought</h3><button class="ftw-modal-close" onclick="closeModal('thought-modal')">&times;</button></div>
+    <div class="ftw-modal-body">
+      <input type="hidden" id="thought-id" />
+      <div><label class="ftw-label">Title</label><input id="thought-title" class="ftw-input" type="text" /></div>
+      <div><label class="ftw-label">Author</label><input id="thought-author" class="ftw-input" type="text" /></div>
+      <div><label class="ftw-label">Publish Date</label><input id="thought-publish_date" class="ftw-input" type="date" /></div>
+      <div>
+        <label class="ftw-label">Image <span style="font-weight:400;text-transform:none;font-size:0.75rem;color:#8a6050;">(optional)</span></label>
+        <div class="ftw-media-tabs">
+          <button class="ftw-tab active" onclick="switchTab('thought-img','upload')">Upload File</button>
+          <button class="ftw-tab"        onclick="switchTab('thought-img','url')">Use URL</button>
+        </div>
+        <div id="thought-img-upload-panel">
+          <input id="thought-img-file" class="ftw-input" type="file" accept="image/*" onchange="uploadMedia(this,'thoughts','image','thought-image_url','thought-img-preview','thought-img-progress')" />
+          <span id="thought-img-progress" class="ftw-upload-progress">Uploading…</span>
+        </div>
+        <div id="thought-img-url-panel" style="display:none;"><input id="thought-image_url" class="ftw-input" type="url" placeholder="https://…" /></div>
+        <img id="thought-img-preview" class="ftw-img-preview" alt="preview" />
+      </div>
+      <div><label class="ftw-label">Body</label><textarea id="thought-body" class="ftw-textarea" style="min-height:180px;"></textarea></div>
+      <p id="thought-error" style="color:#8b2222;font-size:0.85rem;display:none;"></p>
+    </div>
+    <div class="ftw-modal-footer">
+      <button class="btn-outline" style="padding:10px 20px;font-size:0.8rem;" onclick="closeModal('thought-modal')">Cancel</button>
+      <button class="btn-gold"   style="padding:10px 24px;font-size:0.8rem;" onclick="submitThought()">Save</button>
     </div>
   </div>
 </div>
@@ -186,6 +241,8 @@
   function applyAuthUI(user) {
     document.getElementById('nav-login-btn').textContent = user ? 'Logout' : 'Login';
     document.getElementById('admin-badge').style.display = user?.role === 'admin' ? 'inline-block' : 'none';
+    if (user?.role === 'admin') document.body.classList.add('admin-logged-in');
+    else                        document.body.classList.remove('admin-logged-in');
   }
 
   function handleLoginClick() { if (window.FTW.user) { logout(); } else { openModal('login-modal'); } }
@@ -226,6 +283,8 @@
       .join('');
   }
 
+  let currentThought = null;
+
   async function loadThought() {
     const params = new URLSearchParams(window.location.search);
     const id = parseInt(params.get('id'), 10);
@@ -235,6 +294,7 @@
       const res = await fetch(`${API}/thoughts/${id}`);
       if (!res.ok) { showError(); return; }
       const t = await res.json();
+      currentThought = t;
 
       // Update page title
       document.title = `${t.title} — The Way`;
@@ -251,11 +311,78 @@
       // Render body
       document.getElementById('thought-body-content').innerHTML = bodyToHtml(t.body);
 
+      // Bottom byline
+      document.getElementById('post-author').textContent = t.author;
+      document.getElementById('post-date').textContent   = fmtDate(t.publish_date);
+
       document.getElementById('post-loading').style.display = 'none';
       document.getElementById('post-body').style.display = 'block';
     } catch (e) {
       showError();
     }
+  }
+
+  function openEditModal() {
+    if (!currentThought) return;
+    const t = currentThought;
+    document.getElementById('thought-id').value           = t.id;
+    document.getElementById('thought-title').value        = t.title;
+    document.getElementById('thought-author').value       = t.author;
+    document.getElementById('thought-publish_date').value = t.publish_date;
+    document.getElementById('thought-image_url').value    = t.image_url || '';
+    document.getElementById('thought-body').value         = t.body;
+    const preview = document.getElementById('thought-img-preview');
+    preview.src = t.image_url || ''; preview.style.display = t.image_url ? 'block' : 'none';
+    document.getElementById('thought-error').style.display = 'none';
+    openModal('thought-modal');
+  }
+
+  async function submitThought() {
+    const id = document.getElementById('thought-id').value;
+    const payload = {
+      title:        document.getElementById('thought-title').value.trim(),
+      author:       document.getElementById('thought-author').value.trim(),
+      publish_date: document.getElementById('thought-publish_date').value,
+      image_url:    document.getElementById('thought-image_url').value.trim(),
+      body:         document.getElementById('thought-body').value.trim(),
+    };
+    const errEl = document.getElementById('thought-error');
+    errEl.style.display = 'none';
+    try {
+      const res  = await apiFetch('/thoughts/' + id, { method: 'PUT', body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (!res.ok) { errEl.textContent = data.error || 'Save failed'; errEl.style.display = 'block'; return; }
+      closeModal('thought-modal');
+      currentThought = null;
+      loadThought();
+    } catch (e) { errEl.textContent = 'Network error.'; errEl.style.display = 'block'; }
+  }
+
+  function switchTab(prefix, mode) {
+    const uploadPanel = document.getElementById(prefix + '-upload-panel');
+    const urlPanel    = document.getElementById(prefix + '-url-panel');
+    uploadPanel.previousElementSibling.querySelectorAll('.ftw-tab').forEach((t, i) => {
+      t.classList.toggle('active', (i === 0 && mode === 'upload') || (i === 1 && mode === 'url'));
+    });
+    uploadPanel.style.display = mode === 'upload' ? 'block' : 'none';
+    urlPanel.style.display    = mode === 'url'    ? 'block' : 'none';
+  }
+
+  async function uploadMedia(input, type, fileType, urlFieldId, previewId, progressId) {
+    const file = input.files[0]; if (!file) return;
+    const progress = document.getElementById(progressId);
+    progress.style.display = 'inline';
+    const form = new FormData();
+    form.append('type', type); form.append('file_type', fileType); form.append('file', file);
+    try {
+      const token = localStorage.getItem('ftw_token');
+      const res   = await fetch(API + '/upload', { method: 'POST', headers: token ? { 'Authorization': 'Bearer ' + token } : {}, body: form });
+      const data  = await res.json();
+      if (!res.ok) { alert(data.error || 'Upload failed'); return; }
+      document.getElementById(urlFieldId).value = data.url;
+      if (previewId) { const p = document.getElementById(previewId); p.src = data.url; p.style.display = 'block'; }
+    } catch (e) { alert('Upload error: ' + e.message); }
+    finally { progress.style.display = 'none'; }
   }
 
   function showError() {
