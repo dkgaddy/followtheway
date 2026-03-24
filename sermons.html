@@ -191,7 +191,10 @@
     .ftw-tab:first-child { border-radius: 3px 0 0 3px; }
     .ftw-tab:last-child  { border-radius: 0 3px 3px 0; border-left: none; }
     .ftw-tab.active { background: var(--parchment); color: var(--brown); }
-    .ftw-upload-progress { font-size: 0.8rem; color: var(--brown); font-style: italic; display: none; }
+    .ftw-upload-progress { display: none; margin-top: 6px; }
+    .ftw-progress-bar { height: 8px; background: #e0d4c4; border-radius: 4px; overflow: hidden; }
+    .ftw-progress-fill { height: 100%; width: 0%; background: var(--gold); border-radius: 4px; transition: width 0.15s ease; }
+    .ftw-progress-label { font-size: 0.78rem; color: var(--brown); font-style: italic; margin-top: 3px; display: block; }
     .ftw-img-preview { max-width: 100%; max-height: 120px; border-radius: 3px; border: 1px solid #d0c0b0; object-fit: cover; display: none; }
     .content-error { color: #8a6050; font-style: italic; font-size: 0.9rem; padding: 20px 0; text-align: center; }
 
@@ -323,7 +326,10 @@
         </div>
         <div id="sermon-img-upload-panel">
           <input id="sermon-img-file" class="ftw-input" type="file" accept="image/*" onchange="uploadMedia(this,'sermons','image','sermon-image_url','sermon-img-preview','sermon-img-progress')" />
-          <span id="sermon-img-progress" class="ftw-upload-progress">Uploading…</span>
+          <div id="sermon-img-progress" class="ftw-upload-progress">
+            <div class="ftw-progress-bar"><div class="ftw-progress-fill"></div></div>
+            <span class="ftw-progress-label">Uploading… 0%</span>
+          </div>
         </div>
         <div id="sermon-img-url-panel" style="display:none;">
           <input id="sermon-image_url" class="ftw-input" type="url" placeholder="https://…" />
@@ -338,7 +344,10 @@
         </div>
         <div id="sermon-mp3-upload-panel">
           <input id="sermon-mp3-file" class="ftw-input" type="file" accept="audio/*" onchange="uploadMedia(this,'sermons','audio','sermon-mp3_url',null,'sermon-mp3-progress')" />
-          <span id="sermon-mp3-progress" class="ftw-upload-progress">Uploading…</span>
+          <div id="sermon-mp3-progress" class="ftw-upload-progress">
+            <div class="ftw-progress-bar"><div class="ftw-progress-fill"></div></div>
+            <span class="ftw-progress-label">Uploading… 0%</span>
+          </div>
         </div>
         <div id="sermon-mp3-url-panel" style="display:none;">
           <input id="sermon-mp3_url" class="ftw-input" type="url" placeholder="https://…" />
@@ -452,24 +461,42 @@
     urlPanel.style.display    = mode === 'url'    ? 'block' : 'none';
   }
 
-  async function uploadMedia(input, type, fileType, urlFieldId, previewId, progressId) {
+  function uploadMedia(input, type, fileType, urlFieldId, previewId, progressId) {
     const file = input.files[0];
     if (!file) return;
-    const progress = document.getElementById(progressId);
-    progress.style.display = 'inline';
+    const progressEl = document.getElementById(progressId);
+    const fill  = progressEl.querySelector('.ftw-progress-fill');
+    const label = progressEl.querySelector('.ftw-progress-label');
     const form = new FormData();
     form.append('type', type);
     form.append('file_type', fileType);
     form.append('file', file);
-    try {
-      const token = localStorage.getItem('ftw_token');
-      const res   = await fetch(API + '/upload', { method: 'POST', headers: token ? { 'Authorization': 'Bearer ' + token } : {}, body: form });
-      const data  = await res.json();
-      if (!res.ok) { alert(data.error || 'Upload failed'); return; }
+    const token = localStorage.getItem('ftw_token');
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', API + '/upload');
+    if (token) xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+    xhr.upload.onprogress = e => {
+      if (e.lengthComputable) {
+        const pct = Math.round((e.loaded / e.total) * 100);
+        fill.style.width  = pct + '%';
+        label.textContent = 'Uploading… ' + pct + '%';
+      }
+    };
+    xhr.onloadstart = () => {
+      fill.style.width  = '0%';
+      label.textContent = 'Uploading… 0%';
+      progressEl.style.display = 'block';
+    };
+    xhr.onload = () => {
+      progressEl.style.display = 'none';
+      let data;
+      try { data = JSON.parse(xhr.responseText); } catch (e) { alert('Upload error: invalid response'); return; }
+      if (xhr.status < 200 || xhr.status >= 300) { alert(data.error || 'Upload failed'); return; }
       document.getElementById(urlFieldId).value = data.url;
       if (previewId) { const p = document.getElementById(previewId); p.src = data.url; p.style.display = 'block'; }
-    } catch (e) { alert('Upload error: ' + e.message); }
-    finally { progress.style.display = 'none'; }
+    };
+    xhr.onerror = () => { progressEl.style.display = 'none'; alert('Upload error: network failure'); };
+    xhr.send(form);
   }
 
   function fmtDate(str) {
