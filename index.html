@@ -74,12 +74,18 @@
 
     /* ── Nav ── */
     #main-nav {
-      position: absolute;
+      position: fixed;
       top: 0;
       width: 100%;
       z-index: 100;
       background: rgba(44, 24, 16, 0.5);
       border-bottom: 2px solid rgba(201, 160, 80, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    #about, #our-name, #gospel, #sermons, #events, #thoughts, #contact {
+      scroll-margin-top: 70px;
     }
 
     .nav-link {
