@@ -537,7 +537,7 @@
 
   function sermonCard(s) {
     const img = s.image_url
-      ? `<img class="card-img" src="${escHtml(s.image_url)}" alt="${escHtml(s.title)}" onerror="this.style.display='none'" />`
+      ? `<img class="card-img" src="${escHtml(s.image_url)}" alt="${escHtml(s.title)}" loading="lazy" onerror="this.style.display='none'" />`
       : '';
     return `
       <div class="sermon-card" data-id="${s.id}">
